@@ -1,16 +1,64 @@
 :root {
-	--main-color: rgba(0, 0, 0, 0.5);
-	--text-color: rgba(66, 66, 66, 0.9);
+	/* Primary Colors */
+	--main-color: rgba(30, 30, 40, 0.85);
+	--main-color-hover: rgba(50, 50, 65, 0.9);
+	--main-color-active: rgba(70, 70, 90, 0.95);
+	--accent-color: #6c8cbf;
+	--accent-color-hover: #5a7aad;
 
-	--screen-background-color: #f7f7f7;
-
+	/* Text Colors */
+	--text-color: rgba(50, 50, 60, 0.92);
+	--text-color-light: rgba(255, 255, 255, 0.92);
+	--text-color-muted: rgba(125, 125, 140, 0.7);
 	--character-name-color: #ffffff;
 
+	/* Background Colors */
+	--screen-background-color: #f4f4f6;
+	--overlay-color: rgba(0, 0, 0, 0.55);
+	--modal-background: rgba(255, 255, 255, 0.97);
 
-	--quick-menu-text-color: rgba(125, 125, 125, 0.5);
-	--quick-menu-height: 2.5rem;
+	/* Borders & Shadows */
+	--border-radius: 6px;
+	--border-radius-lg: 10px;
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
 
+	/* Spacing */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+
+	/* Typography */
+	--font-family: 'Segoe UI', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+	--font-size-sm: 0.875rem;
+	--font-size-base: 1rem;
+	--font-size-lg: 1.125rem;
+	--font-size-xl: 1.35rem;
+	--line-height: 1.6;
+
+	/* Transitions */
+	--transition-fast: 0.15s ease;
+	--transition-normal: 0.3s ease;
+	--transition-slow: 0.5s ease;
+
+	/* Quick Menu */
+	--quick-menu-text-color: rgba(125, 125, 140, 0.75);
+	--quick-menu-height: 2.75rem;
+	--quick-menu-bg: transparent;
+
+	/* Cursor */
 	--cursor-blinker: '|';
 	--cursor-speed: 0.53s;
 	--cursor-easing: cubic-bezier(1, 0, 0, 1);
+
+	/* Z-index layers */
+	--z-background: 1;
+	--z-characters: 5;
+	--z-ui: 10;
+	--z-menu: 15;
+	--z-modal: 99;
+	--z-overlay: 100;
 }

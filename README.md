@@ -48,9 +48,9 @@ Pick whichever one you feel most comfortable with — it'll be your main tool fr
 You *can* open your game by just double-clicking its `index.html`, but several of Monogatari's features — offline support and service workers, asset preloading, and anything that loads files through `fetch` — only work when the game is served over HTTP instead of opened straight from disk. Running a small local web server is the recommended way to develop, and you don't need anything fancy. From the game's folder, any of these will do:
 
 ```bash
-npx serve                # Node.js
-bunx serve               # Bun
-python3 -m http.server   # Python 3
+npx serve                # Node.js / Bun
+python3 -m http.server   # Python 3 (macOS / Linux)
+python -m http.server    # Python (Windows)
 ```
 
 If you're using Visual Studio Code, the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension gives you the same thing with a single click.

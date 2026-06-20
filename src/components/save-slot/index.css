@@ -8,7 +8,7 @@ save-slot {
 	width: 20rem;
 	height: auto;
 	background-color: var(--main-color);
-	border-radius: 3px;
+	border-radius: var(--border-radius-lg);
 	vertical-align: middle;
 	cursor: pointer;
 	position: relative;
@@ -16,56 +16,103 @@ save-slot {
 	font-size: 1rem;
 	display: flex;
 	flex-flow: column;
-	justify-content: center;
-	color: #fff;
+	justify-content: flex-end;
+	color: var(--text-color-light);
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
+	transition: all var(--transition-normal);
+
+	&:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-lg);
+		background-color: var(--main-color-hover);
+	}
 
 	.badge {
 		position: absolute;
 		top: 0;
 		left: 0;
-		padding: 0.5rem;
-		font-size: 0.7rem;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		font-size: var(--font-size-sm);
 		background: inherit;
 		color: inherit;
 		font-style: italic;
-		font-weight: bold;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		opacity: 0.9;
 	}
 
 	[data-delete] {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		top: -1rem;
+		top: -0.75rem;
+		right: -0.75rem;
 		border-radius: 100%;
 		width: 2rem;
 		height: 2rem;
 		position: absolute;
-		right: -1rem;
 		margin: 0;
-		font-size: 1rem;
-		background-color: var(--main-color);
-		color: #f7f7f7;
+		font-size: 0.875rem;
+		background-color: #c62828;
+		color: #fff;
+		border: 2px solid #fff;
+		box-shadow: var(--shadow-sm);
+		transition: all var(--transition-fast);
+		z-index: 5;
+
+		&:hover {
+			background-color: #b71c1c;
+			transform: scale(1.1);
+			box-shadow: var(--shadow-md);
+		}
 	}
 
 	img {
 		width: 100%;
+		height: auto;
+		display: block;
 	}
 
 	[data-content="background"] {
 		width: 100%;
 		height: 10rem;
-		border: 1px solid rgba(0, 0, 0, 0.2);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 40%;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+			pointer-events: none;
+		}
 	}
 
 	figcaption {
-		padding: 1rem;
-		color: #fff;
+		padding: var(--spacing-md);
+		color: var(--text-color-light);
+		background: rgba(0, 0, 0, 0.2);
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 4rem;
 
 		small {
 			display: block;
+			font-size: var(--font-size-sm);
+			opacity: 0.8;
+			margin-top: var(--spacing-xs);
 		}
 	}
 }

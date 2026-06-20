@@ -6,13 +6,16 @@
 
 quick-menu {
 	top: 0;
-	background-color: transparent;
+	background-color: var(--quick-menu-bg);
 	width: 100%;
-	z-index: 11;
+	z-index: var(--z-menu);
 	position: absolute;
 	height: var(--quick-menu-height);
 	max-height: var(--quick-menu-height);
 	justify-content: flex-end;
+	align-items: center;
+	padding: 0 var(--spacing-md);
+	transition: background-color var(--transition-normal);
 
 	&.splash-screen {
 		display: none;
@@ -22,30 +25,44 @@ quick-menu {
 		background-color: transparent;
 
 		button {
-
 			&:hover,
 			&:focus {
-				color: var(--main-color);
+				color: var(--accent-color);
 				cursor: pointer;
+				border-bottom-color: var(--accent-color);
 			}
 		}
 	}
 
 	button {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		width: auto;
-		font-size: 1rem;
-		margin: 0 0.5rem;
+		height: auto;
+		min-width: 2.5rem;
+		min-height: 2.5rem;
+		font-size: var(--font-size-base);
+		margin: 0 var(--spacing-xs);
 		background: transparent;
 		color: var(--quick-menu-text-color);
+		border: none;
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-sm);
+		transition: all var(--transition-fast);
 
 		&:hover,
 		&:focus {
-			color: var(--quick-menu-text-color);
-			background: transparent;
+			color: var(--text-color-light);
+			background: rgba(255, 255, 255, 0.1);
 			cursor: pointer;
-			border: none;
-			border-bottom: 4px solid var(--quick-menu-text-color);
+			border-bottom: none;
+			transform: translateY(-1px);
+		}
+
+		&:active {
+			transform: translateY(0);
+			background: rgba(255, 255, 255, 0.15);
 		}
 
 		& > [data-string] {
@@ -53,8 +70,11 @@ quick-menu {
 		}
 
 		& > .fas {
-			display: inline-block;
-			font-size: 1.5rem;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.25rem;
+			width: 1.5rem;
 		}
 	}
 }
@@ -66,19 +86,23 @@ quick-menu {
 		bottom: 0;
 		top: auto;
 		background-color: var(--main-color);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
 
 		&.transparent {
 			color: var(--main-color);
+			background-color: rgba(30, 30, 40, 0.75);
 		}
 
 		& button {
-			color: #f7f7f7;
-			margin: 0 0.25rem;
+			color: var(--text-color-light);
+			margin: 0 var(--spacing-xs);
 
 			&:hover,
 			&:focus {
-				color: rgba(255, 255, 255, 0.8);
-				background: transparent;
+				color: rgba(255, 255, 255, 0.85);
+				background: rgba(255, 255, 255, 0.12);
+				border-bottom: none;
 			}
 		}
 
@@ -86,6 +110,8 @@ quick-menu {
 
 			& > [data-string] {
 				display: inline-block;
+				margin-left: var(--spacing-xs);
+				font-size: var(--font-size-sm);
 			}
 		}
 	}
@@ -93,8 +119,13 @@ quick-menu {
 
 /** Medium Devices, Desktops (768px)**/
 @media screen and (min-width: 48em) {
-	quick-menu > button {
-		width: auto;
-		height: auto;
+	quick-menu {
+		padding: 0 var(--spacing-lg);
+
+		> button {
+			width: auto;
+			height: auto;
+			padding: var(--spacing-sm) var(--spacing-md);
+		}
 	}
 }

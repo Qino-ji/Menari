@@ -1,5 +1,8 @@
-import { mkdir } from 'fs/promises';
+import { mkdir, rm } from 'fs/promises';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(import.meta.url).slice(0, import.meta.url.lastIndexOf('/'));
 
 const OUT_DIR_BROWSER = './dist/engine/core';
 const OUT_DIR_DEBUG = './dist/engine/debug';
@@ -14,14 +17,21 @@ const commonBuildOptions = {
 	minify: true,
 };
 
-/**
- * Build the ES module version
- */
+async function crossPlatformRemove(targets: string[]): Promise<void> {
+	for (const target of targets) {
+		try {
+			await rm(target, { recursive: true, force: true });
+		} catch {
+			// Target may not exist; ignore ENOENT
+		}
+	}
+}
+
 async function buildModule(): Promise<void> {
 	console.log('📦 Building ES module...');
 
 	const result = await Bun.build({
-		entrypoints: [join(SRC_DIR, 'index.js')],
+		entrypoints: [join(SRC_DIR, 'index.ts')],
 		outdir: OUT_DIR_MODULE,
 		naming: 'monogatari.module.js',
 		...commonBuildOptions,
@@ -38,9 +48,6 @@ async function buildModule(): Promise<void> {
 	console.log('✅ ES module built successfully');
 }
 
-/**
- * Build the browser bundle version
- */
 async function buildBrowser(): Promise<void> {
 	console.log('🌐 Building browser bundle...');
 
@@ -65,9 +72,6 @@ async function buildBrowser(): Promise<void> {
 	console.log('✅ Browser bundle built successfully');
 }
 
-/**
- * Build the debug script for browser
- */
 async function buildDebug(): Promise<void> {
 	console.log('🐛 Building debug script...');
 
@@ -92,9 +96,6 @@ async function buildDebug(): Promise<void> {
 	console.log('✅ Debug script built successfully');
 }
 
-/**
- * Build CSS
- */
 async function buildCSS(): Promise<void> {
 	console.log('🎨 Building CSS...');
 
@@ -117,13 +118,10 @@ async function buildCSS(): Promise<void> {
 	console.log('✅ CSS built successfully');
 }
 
-/**
- * Build TypeScript declaration files
- */
 async function buildTypes(): Promise<void> {
 	console.log('📝 Building type declarations...');
 
-	const proc = Bun.spawn(['tsc', '--emitDeclarationOnly', '--declarationDir', './dist/types'], {
+	const proc = Bun.spawn(['bunx', 'tsc', '--emitDeclarationOnly', '--declarationDir', './dist/types'], {
 		stdout: 'inherit',
 		stderr: 'inherit',
 	});
@@ -145,11 +143,14 @@ async function watchMode(): Promise<void> {
 	await Promise.all([buildBrowser(), buildCSS()]);
 
 	// Watch for changes
-	const srcWatcher = Bun.spawn(['bun', 'build', join(SRC_DIR, 'browser.ts'),
+	const srcWatcher = Bun.spawn([
+		'bun',
+		'build',
+		join(SRC_DIR, 'browser.ts'),
 		'--target', 'browser',
 		'--format', 'iife',
 		'--outdir', OUT_DIR_BROWSER,
-		'--watch'
+		'--watch',
 	], {
 		stdout: 'inherit',
 		stderr: 'inherit',
@@ -165,11 +166,6 @@ async function watchMode(): Promise<void> {
 const args = process.argv.slice(2);
 const flags = new Set(args);
 
-// Ensure output directories exist
-await mkdir(OUT_DIR_BROWSER, { recursive: true });
-await mkdir(OUT_DIR_DEBUG, { recursive: true });
-await mkdir(OUT_DIR_MODULE, { recursive: true });
-
 // Execute based on flags
 if (flags.has('--watch')) {
 	await watchMode();
@@ -184,7 +180,19 @@ if (flags.has('--watch')) {
 } else if (flags.has('--types')) {
 	await buildTypes();
 } else {
-	// Build all
+	// Full build: clean first, then build everything
+	console.log('🧹 Cleaning previous build artifacts...\n');
+	await crossPlatformRemove([
+		OUT_DIR_BROWSER,
+		OUT_DIR_DEBUG,
+		OUT_DIR_MODULE,
+	]);
+
+	// Ensure output directories exist after cleanup
+	await mkdir(OUT_DIR_BROWSER, { recursive: true });
+	await mkdir(OUT_DIR_DEBUG, { recursive: true });
+	await mkdir(OUT_DIR_MODULE, { recursive: true });
+
 	console.log('🚀 Starting full build...\n');
 
 	await Promise.all([

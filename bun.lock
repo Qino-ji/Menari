@@ -676,7 +676,7 @@
 
     "qs": ["qs@6.14.0", "", { "dependencies": { "side-channel": "^1.1.0" } }, "sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w=="],
 
-    "random-js": ["random-js@github:Monogatari/random-js#7dd5b5f", {}, "Monogatari-random-js-7dd5b5f"],
+    "random-js": ["random-js@github:Monogatari/random-js#7dd5b5f", {}, "Monogatari-random-js-7dd5b5f", "sha512-tz747/gLpfXZ6bMGtwq+AIy29528uVr/WM86k8RLl8dh+AmCzui0mJ/byiCAtca9Ai0AGoT+74BRmtBIU8rD6w=="],
 
     "request-progress": ["request-progress@3.0.0", "", { "dependencies": { "throttleit": "^1.0.0" } }, "sha512-MnWzEHHaxHO2iWiQuHrUPBi/1WeBf5PkxQqNyNvLl9VAYSdXkP8tQ3pBSeCPD+yw0v0Aq1zosWLz0BdeXpWwZg=="],
 
