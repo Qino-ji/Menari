@@ -142,9 +142,14 @@ export class FileSystemStorage implements StorageInterface {
 		return await this.sendRequest('monogatari:storage-keys', {}) as string[];
 	}
 
-	async contains(key: string): Promise<void> {
-		// Resolves if key exists, rejects if not (matches Space convention)
-		await this.sendRequest('monogatari:storage-contains', { key });
+	async contains(key: string): Promise<boolean> {
+		// Resolves with true if key exists, false if not
+		try {
+			await this.sendRequest('monogatari:storage-contains', { key });
+			return true;
+		} catch {
+			return false;
+		}
 	}
 
 	async open(): Promise<this> {

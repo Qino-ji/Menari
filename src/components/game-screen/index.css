@@ -14,10 +14,18 @@ game-screen {
 	position: relative;
 	background-color: #000000;
 	user-select: none;
+	-webkit-user-select: none;
 
 	img {
 		position: absolute;
 		max-height: 90%;
+		object-fit: contain;
+		transition: all var(--transition-slow);
+		filter: brightness(0.95);
+	}
+
+	&:hover img {
+		filter: brightness(1);
 	}
 
 	[data-image] {
@@ -28,6 +36,8 @@ game-screen {
 		margin: auto;
 		max-width: 100%;
 		max-height: 100%;
+		transition: all var(--transition-normal);
+		animation: fadeIn 0.6s ease-out;
 
 		&.bottom {
 			top: auto;
@@ -51,12 +61,17 @@ game-screen {
 		position: absolute;
 		max-width: 100%;
 		max-height: 80vh;
+		transition: all var(--transition-spring);
+		z-index: var(--z-characters);
+		filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+		animation: characterIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 
 	[data-sprite] {
 		margin: 0 auto;
 		left: 0;
 		right: 0;
+		transition: all var(--transition-spring);
 
 		&.right {
 			left: initial;
@@ -67,22 +82,27 @@ game-screen {
 			left: 0;
 			right: initial;
 		}
+	}
+}
 
-		/* left: 50%;
-		transform: translateX(-50%);
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: scale(1.02);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
 
-		&.right {
-			left: 100%;
-			transform: translateX(-100%);
-		}
-
-		&.left {
-			left: 0%;
-			transform: translateX(0%);
-		}
-
-		&.move {
-			transition:all 0.2s ease;
-		} */
+@keyframes characterIn {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

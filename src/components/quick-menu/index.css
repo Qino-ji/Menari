@@ -6,7 +6,9 @@
 
 quick-menu {
 	top: 0;
-	background-color: var(--quick-menu-bg);
+	background: var(--bg-glass);
+	backdrop-filter: blur(20px) saturate(180%);
+	-webkit-backdrop-filter: blur(20px) saturate(180%);
 	width: 100%;
 	z-index: var(--z-menu);
 	position: absolute;
@@ -14,22 +16,24 @@ quick-menu {
 	max-height: var(--quick-menu-height);
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0 var(--spacing-md);
-	transition: background-color var(--transition-normal);
+	padding: 0 var(--spacing-lg);
+	transition: all var(--transition-normal);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
 	&.splash-screen {
 		display: none;
 	}
 
 	&.transparent {
-		background-color: transparent;
+		background: transparent;
+		border-bottom: none;
 
 		button {
 			&:hover,
 			&:focus {
-				color: var(--accent-color);
-				cursor: pointer;
-				border-bottom-color: var(--accent-color);
+				color: var(--accent);
+				background: var(--accent-subtle);
+				box-shadow: var(--shadow-glow);
 			}
 		}
 	}
@@ -40,29 +44,49 @@ quick-menu {
 		justify-content: center;
 		width: auto;
 		height: auto;
-		min-width: 2.5rem;
-		min-height: 2.5rem;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
 		font-size: var(--font-size-base);
 		margin: 0 var(--spacing-xs);
 		background: transparent;
-		color: var(--quick-menu-text-color);
+		color: var(--text-secondary);
 		border: none;
 		border-radius: var(--border-radius);
-		padding: var(--spacing-xs) var(--spacing-sm);
-		transition: all var(--transition-fast);
+		padding: var(--spacing-sm) var(--spacing-md);
+		transition: all var(--transition-normal);
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%) scaleX(0);
+			width: 60%;
+			height: 2px;
+			background: var(--accent);
+			transition: transform var(--transition-normal);
+			border-radius: 1px;
+		}
 
 		&:hover,
 		&:focus {
-			color: var(--text-color-light);
-			background: rgba(255, 255, 255, 0.1);
+			color: var(--text-primary);
+			background: rgba(255, 255, 255, 0.08);
 			cursor: pointer;
-			border-bottom: none;
-			transform: translateY(-1px);
+			transform: translateY(-2px);
+			box-shadow: var(--shadow-md);
+
+			&::before {
+				transform: translateX(-50%) scaleX(1);
+			}
 		}
 
 		&:active {
 			transform: translateY(0);
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.12);
+			box-shadow: var(--shadow-sm);
 		}
 
 		& > [data-string] {
@@ -75,6 +99,12 @@ quick-menu {
 			justify-content: center;
 			font-size: 1.25rem;
 			width: 1.5rem;
+			height: 1.5rem;
+			transition: transform var(--transition-spring);
+		}
+
+		&:hover > .fas {
+			transform: scale(1.15);
 		}
 	}
 }
@@ -85,24 +115,29 @@ quick-menu {
 	quick-menu {
 		bottom: 0;
 		top: auto;
-		background-color: var(--main-color);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
+		background: var(--bg-glass);
+		backdrop-filter: blur(24px) saturate(180%);
+		-webkit-backdrop-filter: blur(24px) saturate(180%);
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		border-bottom: none;
+		box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
 
 		&.transparent {
-			color: var(--main-color);
-			background-color: rgba(30, 30, 40, 0.75);
+			background: rgba(26, 26, 46, 0.75);
+			border-top-color: rgba(255, 255, 255, 0.05);
 		}
 
 		& button {
-			color: var(--text-color-light);
+			color: var(--text-secondary);
 			margin: 0 var(--spacing-xs);
+			border-radius: var(--border-radius);
+			position: relative;
 
 			&:hover,
 			&:focus {
-				color: rgba(255, 255, 255, 0.85);
-				background: rgba(255, 255, 255, 0.12);
-				border-bottom: none;
+				color: var(--text-primary);
+				background: rgba(255, 255, 255, 0.1);
+				box-shadow: var(--shadow-glow);
 			}
 		}
 
@@ -110,8 +145,12 @@ quick-menu {
 
 			& > [data-string] {
 				display: inline-block;
-				margin-left: var(--spacing-xs);
+				margin-left: var(--spacing-sm);
 				font-size: var(--font-size-sm);
+				font-weight: 500;
+				letter-spacing: var(--letter-spacing-wide);
+				text-transform: uppercase;
+				font-size: 0.75rem;
 			}
 		}
 	}
@@ -120,12 +159,13 @@ quick-menu {
 /** Medium Devices, Desktops (768px)**/
 @media screen and (min-width: 48em) {
 	quick-menu {
-		padding: 0 var(--spacing-lg);
+		padding: 0 var(--spacing-xl);
 
 		> button {
 			width: auto;
 			height: auto;
 			padding: var(--spacing-sm) var(--spacing-md);
+			border-radius: var(--border-radius);
 		}
 	}
 }

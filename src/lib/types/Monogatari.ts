@@ -38,7 +38,7 @@ export interface StorageInterface {
   clear(): Promise<void>;
   key(index: number, full?: boolean): Promise<string>;
   keys(full?: boolean): Promise<string[]>;
-  contains(key: string): Promise<void>;
+  contains(key: string): Promise<boolean>;
   open(): Promise<unknown>;
   configuration(object?: Record<string, unknown> | null): Record<string, unknown> | undefined;
   rename(name: string): Promise<void>;

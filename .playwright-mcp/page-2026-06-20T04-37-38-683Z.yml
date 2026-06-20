@@ -1,0 +1,9 @@
+- generic [ref=e5]:
+  - button "Start" [ref=e6] [cursor=pointer]:
+    - generic [ref=e7]: Start
+  - button "Load" [ref=e8] [cursor=pointer]:
+    - generic [ref=e9]: Load
+  - button "Settings" [ref=e10] [cursor=pointer]:
+    - generic [ref=e11]: Settings
+  - button "Help" [ref=e12] [cursor=pointer]:
+    - generic [ref=e13]: Help

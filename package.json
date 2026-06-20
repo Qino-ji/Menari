@@ -30,14 +30,22 @@
 	},
 	"homepage": "https://monogatari.io",
 	"scripts": {
-		"build": "bun run clean && bun run lint && bun run check && bun build.ts",
-		"watch": "bun run watch:js && bun run watch:css",
+		"build": "bun run lint && bun run check && bun build.ts",
+		"watch": "bun build.ts --watch",
 		"watch:js": "bun build.ts --watch",
 		"watch:css": "bun build.ts --css --watch",
 		"check": "bunx tsc --noEmit",
-		"clean": "bun run rm -rf dist/engine/core dist/types && rm -rf lib",
 		"lint": "bunx eslint ./src",
-		"test": "bunx cypress"
+		"test": "bunx cypress",
+		"dev": "bun run watch",
+		"build:css": "bun build.ts --css",
+		"build:js": "bun build.ts --browser",
+		"build:module": "bun build.ts --module",
+		"build:debug": "bun build.ts --debug",
+		"build:types": "bun build.ts --types",
+		"build:fast": "bun build.ts --no-minify",
+		"build:verbose": "bun build.ts --no-sourcemap",
+		"clean": "bun -e \"import { rm } from 'fs/promises'; ['dist/engine/core','dist/types','lib'].forEach(p => rm(p,{recursive:true,force:true}).catch(()=>{}));\""
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.1",
